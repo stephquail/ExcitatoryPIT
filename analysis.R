@@ -5,7 +5,7 @@
 #The packages that R uses installed
 #-if you try to run this without the appropriate packages installed it wont work
 #-you can use install.packages() to download these
-#-this may take a bit of fiddling if your unis firewall doesn't like you doing this
+#-this may take a bit of fiddling if your uni's firewall doesn't like you doing this
 #You will need to create individual participant ID vectors in the 'R/functions.R' script 
 
 library(ggplot2)
@@ -17,18 +17,22 @@ source("R/functions.R") #this loads the functions that will be needed for analys
 #Example of this from a similar task
 #ID <- list(iPIT401, iPIT402, iPIT403, iPIT404)
 
-ID <- list()
+ID <- list(PIT001, PIT002)
+
+#cs list
+cs <- list("s1", "s2", "s3", "s4")
 
 #Create empty vectors that will be filled with participant data as the analysis loops through each indiviudal data set
+participant <- character(length = length(ID))  # creates a vector that will be filled with participant IDs
 
-participant <-() # creates a vector that will be filled with participant IDs
-#specific transfer results
-same <- ()
-different <- ()
-#general transfer results
-cs_plus <- ()
-cs_minus <- ()
-preCS <- () #baseline responding
+#specific transfer: same, diff
+#general transfer: cs_plus, cs_minus
+#baseline: preCS
+cuenames <- c("same", "diff", "cs_plus", "cs_minus", "preCS") #names of the different cue conditions
+emptycues <- vector("list", length(cuenames)) # create a list for each cue condition
+names(emptycues) <- cuenames #give each item in the list cue names
+
+emptycues <- lapply(emptycues, createVector, y=ID) #for each cue condition, create an empty vector the length of the # of participants 
 
 #loop through the data extraction for each participant
 for(i in ID){
@@ -85,7 +89,33 @@ for(i in ID){
     "Invalid Version Selected"
   }
     
+  #Find response data for each CS
+  for(j in cs){
+    assign(paste0(j, ".points"), csPoints(j)) #finds pre, start and end time for each cs
+    assign(paste0(j, ".responses"), csMeans(j)) # finds mean responses during each cs
+  }
   
+  #Find mean responses by cue type
+  i.same <- mean(c(s1.responses[2], s2.responses[4])) #R1 CS responses 2nd value in vector, R2 CS responses 4th
+  i.diff <- mean(c(s2.responses[2], s1.responses[4])) 
+  i.cs_plus <- mean(c(s3.responses[2], s3.responses[4]))
+  i.cs_minus <- mean(c(s4.responses[2], s4.responses[4]))
+  i.preCS <- mean(c(s1.responses[c(1,3)], s2.responses[c(1,3)], s3.responses[c(1,3)], s4.responses[c(1,3)]))
   
+  #Insert individual participant values into the empty vectors created
+  #for each cue type, inset the value of the participant into the row that corresponses with their participant number
+  participant[as.numeric(i[4])] <- i[[3]] # insert participant ID code into vector
+  for(j in cuenames){
+    emptycues[[j]][[as.numeric(i[4])]] <- get(paste0("i.", j))
+  }
 }
+
+group.df <- as.data.frame(emptycues) #creates a dataframe from list
+wide.group.df <- data.frame(participant, group.df) # group data frame w/ participant IDs
+
+#Set directory for output
+dir.output <- 'R/output'
+
+#Export group data
+write.csv(wide.group.df, file = file.path(dir.output, "group_summary.csv"), row.names = FALSE)
   
