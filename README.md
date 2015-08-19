@@ -1,4 +1,4 @@
-# excitatory PIT
-Pavlovian-Instrumental Transfer using a 3CS design.
+# Excitatory PIT
+Pavlovian-Instrumental Transfer in humans using a 3CS design.
 ===============
-Extracts and summarises specific and general transfer data from participant logfiles
+- Extracts and summarises specific and general transfer data from participant logfiles
