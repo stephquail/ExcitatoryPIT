@@ -21,6 +21,13 @@ PIT002_i <- c("R/data/PIT002_instru.log", "A", "PIT002", 2)
 PIT001_p <- c("R/data/PIT001_pav.csv", "PIT001", 1)
 PIT002_p <- c("R/data/PIT002_pav.csv", "PIT002", 2)
 
+#ID vectors for analysis of the devaluation test data
+#Devaluation Version in these vectors
+#Deval version 1: O1 devalued
+#Deval version 2: O2 devalued
+PIT001_d <- c("R/data/PIT001_deval.log", "1", "PIT001", 1)
+PIT002_d <- c("R/data/PIT002_deval.log", "1", "PIT002", 2)
+
 ##Text from log files
 #For each CS this creates a list of the log file texts that signal the onset of each CS presentation
 
