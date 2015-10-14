@@ -16,6 +16,11 @@ PIT002 <- c("R/data/PIT002.log", "A", "PIT002", 2)
 #ID codes for analysis of the instrumental training data
 PIT001_i <- c("R/data/PIT001_instru.log", "A", "PIT001", 1)
 PIT002_i <- c("R/data/PIT002_instru.log", "A", "PIT002", 2)
+
+#ID vectors for analysis of the pavlovian training data
+PIT001_p <- c("R/data/PIT001_pav.csv", "PIT001", 1)
+PIT002_p <- c("R/data/PIT002_pav.csv", "PIT002", 2)
+
 ##Text from log files
 #For each CS this creates a list of the log file texts that signal the onset of each CS presentation
 
@@ -85,4 +90,19 @@ csMeans <- function(x){
 #y = length of the empty vector
 createVector <- function(x, y){
   x <- numeric(length=length(y))
+}
+
+
+#assigns an empty matrix to a variable
+#y = number of rows of the empty matrix
+#z = number of columns of the empty matrix
+createDF <- function(x,y,z){
+  x <- matrix(nrow = length(y), ncol = z)
+}
+
+
+addID <- function(id, x, cols){
+  df <- data.frame(id, x)
+  colnames(df) <- cols
+  df
 }
