@@ -51,8 +51,8 @@ for(i in ID){
   i.o2times <- findTime("win B")
   
   #Count the number of snacks won
-  i.o1won <- length(o1times)
-  i.o2won <- length(o2times)
+  i.o1won <- length(i.o1times)
+  i.o2won <- length(i.o2times)
   
   #Total number of snacks won
   i.totalWon <- i.o1won + i.o2won
