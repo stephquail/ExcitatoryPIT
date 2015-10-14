@@ -141,5 +141,5 @@ wide.instru.df <- data.frame(participant, emptymeasures) #group data frame with 
 dir.output <- 'R/output'
 
 #Export group data
-write.csv(wide.group.df, file = file.path(dir.output, "group_instruData.csv"), row.names = FALSE)
+write.csv(wide.instru.df, file = file.path(dir.output, "group_instruData.csv"), row.names = FALSE)
 
