@@ -11,6 +11,11 @@
 
 PIT001 <- c("R/data/PIT001.log", "A", "PIT001", 1)
 PIT002 <- c("R/data/PIT002.log", "A", "PIT002", 2)
+
+
+#ID codes for analysis of the instrumental training data
+PIT001_i <- c("R/data/PIT001_instru.log", "A", "PIT001", 1)
+PIT002_i <- c("R/data/PIT002_instru.log", "A", "PIT002", 2)
 ##Text from log files
 #For each CS this creates a list of the log file texts that signal the onset of each CS presentation
 
